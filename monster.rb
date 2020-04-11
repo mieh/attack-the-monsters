@@ -1,7 +1,7 @@
 require_relative 'monster_name_generator.rb'
 
 class Monster
-  attr_accessor :attributes
+  attr_accessor :attributes, :monster_type
 
   def initialize(monster_type)
     @attributes = {
@@ -12,6 +12,11 @@ class Monster
       defence: 0
     }
 
-    monster_type.apply_perks(@attributes)
+    @monster_type = monster_type
+    @monster_type.apply_perks(@attributes)
+  end
+
+  def attack
+    @monster_type.attack(@attributes)
   end
 end
