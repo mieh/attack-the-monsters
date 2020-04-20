@@ -1,9 +1,11 @@
 class Weapon
-  attr_accessor :effects, :perks
+  attr_accessor :effects, :perks, :name
 
-  def initialize(perks, effects = [])
-    @perks = perks.apply
-    @effects = effects
+  def initialize(template)
+    @name = template.name
+    @perks = template.apply_perks
+    @effects = []
+    @effects = template.apply_effects if template.respond_to?(:apply_effects)
   end
 
   def apply_perks(attributes)
@@ -19,9 +21,5 @@ class Weapon
     return value += modifier if !modifier.kind_of?(Array)
 
     return value += modifier[1] == 'percent' ? value * (modifier[0].to_f/100) : modifier[0]
-  end
-
-  def name
-    return 'Knife'
   end
 end

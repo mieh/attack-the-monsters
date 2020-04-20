@@ -1,10 +1,14 @@
-class AxePerks
+class AxeTemplate
   PERKS = {
     attack: 4,
     defence: -1
   }
 
-  def apply
+  def apply_perks
     return PERKS
+  end
+
+  def name
+    return 'Axe'
   end
 end
