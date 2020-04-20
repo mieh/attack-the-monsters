@@ -1,8 +1,5 @@
 require_relative '../weapon.rb'
-require_relative '../perks/axe_perks.rb'
-require_relative '../perks/sword_perks.rb'
-require_relative '../perks/knife_perks.rb'
-require_relative '../perks/none_perks.rb'
+require_relative '../util/weapon_templates_randomizer.rb'
 
 class HumanoidMonster
   PERKS = {
@@ -28,7 +25,7 @@ class HumanoidMonster
   end
 
   def give_weapon(attributes)
-    attributes[:weapon] = Weapon.new([AxePerks, SwordPerks, KnifePerks, NonePerks].shuffle.first.new)
+    attributes[:weapon] = Weapon.new(WeaponTemplatesRandomizer.instance.generate)
   end
 
   def modify(value, modifier)
@@ -41,24 +38,15 @@ class HumanoidMonster
     return 'Humanoid Monster'
   end
 
-  def monster_status(attributes)
+  def status(attributes)
     return apply_weapon_perks(attributes)
   end
+
+  private
 
   def apply_weapon_perks(attributes)
     return if attributes[:weapon].nil?
 
     return attributes[:weapon].apply_perks(attributes)
-  end
-
-  def attack(attributes)
-    attributes = character_status
-
-    last_attack_value = attributes[:attack]
-    attributes[:weapon].effects.each do |effect|
-      last_attack_value = effect.calculate_damage(last_attack_value)
-    end
-
-    return last_attack_value
   end
 end

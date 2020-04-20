@@ -11,6 +11,10 @@ class GolemsMonster
     @instance
   end
 
+  def status(attributes)
+    return attributes
+  end
+
   def apply_perks(attributes)
     PERKS.each do |perk, v|
       attributes[perk] = modify(attributes[perk], v)

@@ -10,7 +10,7 @@ class MonsterNameGenerator
   end
 
   def generate
-    idx = rand(1..POSSIBLE_NAME.size)
+    idx = rand(POSSIBLE_NAME.size)
     return POSSIBLE_NAME[idx]
   end
 end
